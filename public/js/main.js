@@ -1,36 +1,28 @@
 const percentageForm = document.getElementById('percentageForm');
-const percentageInput = document.getElementById('percentage');
-const numberInput = document.getElementById('number');
-const resultDiv = document.getElementById('result');
 
 percentageForm.addEventListener('submit', function(event) {
-  event.preventDefault(); 
+  event.preventDefault(); // Stop default form submission
 
-  const percentage = parseFloat(percentageInput.value);
-  const number = parseFloat(numberInput.value);
+  const percentage = parseFloat(document.getElementById('percentage').value);
+  const number = parseFloat(document.getElementById('number').value);
 
+  // Validate inputs (handle non-numeric values)
   if (isNaN(percentage) || isNaN(number)) {
-    alert('Please enter valid numbers.');
-    return;
+    document.getElementById('result').innerText = 'Solo se permiten números.';
+    return; // Exit the function if inputs are invalid
   }
+
+  // Calculate percentage based on scenario (optional enhancement)
   let result;
-  if (percentageInput.placeholder === 'Calcula el') {
-    result = (percentage / 100) * number;
- 
-  } else if (percentageInput.placeholder === 'Es qué % de') {
-    if (number === 0) {
-      result = 'Division by zero is not allowed.';
-    } else {
-      result = (percentage / number) * 100;
-    }
-  } else {
-    console.error('Unexpected placeholder for percentage input.');
-  }
+  // Add logic here to handle different calculation scenarios if needed
 
-  resultDiv.textContent = result.toFixed(0) ; 
-});
+  // Default calculation: X% of Y
+  result = (percentage / 100) * number;
 
-percentageInput.addEventListener('focus', function() {
-  percentageInput.placeholder = 'Calcula el'; 
+  // Format result (avoid unnecessary checks)
+  const formattedResult = result.toFixed(0); // Always format with 2 decimal places
+
+  // Display result with clear labeling
+  document.getElementById('result').innerText = `Resultado: ${formattedResult}`;
 });
 
